@@ -100,7 +100,7 @@ class Questionnaire:
 # -------------------- PHASE PROD : TOUS LES QUESTIONNAIRES --------------------
 # Exécuter cette partie de code que si le nom du fichier lancé est le même que le nom dans le main
 if __name__ == "__main__":
-    # Questionnaire.from_json_file(animaux_leschats_confirme.json).lancer()
+    # Questionnaire.from_json_file("cinema_alien_debutant.json").lancer()
     if len(sys.argv) < 2:
         print("ERREUR: Vous devez spécifié le nom du fichier json à charger")
         exit(0)
