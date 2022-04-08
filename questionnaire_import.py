@@ -64,6 +64,8 @@ def generate_json_file(categorie, titre, url):
             print(f"Erreur dans la désérialisation du lien: {url} - Questionnaire {titre} non généré")
 
 
-for quizz_data in open_quizz_db_data:
-    generate_json_file(quizz_data[0], quizz_data[1], quizz_data[2])
+# Exécuter cette partie de code que si le nom du fichier lancé est le même que le nom dans le main
+if __name__ == "__main__":
+    for quizz_data in open_quizz_db_data:
+        generate_json_file(quizz_data[0], quizz_data[1], quizz_data[2])
 
