@@ -55,5 +55,31 @@ class TestsQuestionnaire(unittest.TestCase):
         with patch("builtins.input", return_value="1"):
             self.assertEqual(q.lancer(), 2)
 
+    # Tester le lancement du questionnaire avec un format invalide
+    def test_questionnaire_format_invalide(self):
+        # Manque categorie et difficulte
+        filename = os.path.join("test_data", "format_invalide1.json")
+        q = questionnaire.Questionnaire.from_json_file(filename)
+        # S'assurer que le questionnaire ne renvoie pas none
+        self.assertIsNotNone(q)
+        # S'assurer que le questionnaire renvoie inconnue pour la catégorie
+        self.assertEqual(q.categorie, "Inconnue")
+        # S'assurer que le questionnaire renvoie inconnue pour la difficulté
+        self.assertEqual(q.difficulte, "Inconnue")
+        # S'assurer que le questionnaire contient des questions
+        self.assertIsNotNone(q.questions)
+        
+        # Manque categorie et difficulte et titre
+        filename = os.path.join("test_data", "format_invalide2.json")
+        q = questionnaire.Questionnaire.from_json_file(filename)
+        # S'assurer que le questionnaire renvoie none car titre bloquant
+        self.assertIsNone(q)
+
+        # Manque categorie et difficulte et questions
+        filename = os.path.join("test_data", "format_invalide3.json")
+        q = questionnaire.Questionnaire.from_json_file(filename)
+        # S'assurer que le questionnaire renvoie none car titre bloquant
+        self.assertIsNone(q)
+
 
 unittest.main()

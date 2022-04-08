@@ -1,6 +1,7 @@
 # Import de json pour charger les fichiers de questionnaires générés avec script import
 import json
 import sys
+from tkinter.messagebox import NO
 
 
 class Question:
@@ -60,12 +61,22 @@ class Questionnaire:
         self.difficulte = difficulte
 
     def from_json_data(data):
+        # Retourner None si pas de question
+        if not data.get("questions"):
+            return None
         # Récupérer les questions
         questionnaire_data_questions = data["questions"]
         # Mise en forme des questions : peut générer None (voir from_data_json class Question)
         questions = [Question.from_json_data(i) for i in questionnaire_data_questions]
         # Suppression des questions None
         questions = [i for i in questions if i]
+        # Suite test questionnaire format invalide : rendre categorie et difficulte non bloquant et titre bloquant
+        if not data.get("categorie"):
+            data["categorie"] = "Inconnue"
+        if not data.get("difficulte"):
+            data["difficulte"] = "Inconnue"
+        if not data.get("titre"):
+            return None
         return Questionnaire(questions, data["categorie"], data["titre"], data["difficulte"])
 
     def from_json_file(filename):
